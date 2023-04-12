@@ -23,29 +23,18 @@ class SearchDataController < ApplicationController
     @article = Article.find(params[:article_id])
     @search_datum = SearchDatum.new(user_id: @user.id, article_id: article.id)
 
-  #   respond_to do |format|
-  #     if @search_datum.save
-  #       format.html { redirect_to search_datum_url(@search_datum), notice: 'Search datum was successfully created.' }
-  #       format.json { render :show, status: :created, location: @search_datum }
-  #     else
-  #       format.html { render :new, status: :unprocessable_entity }
-  #       format.json { render json: @search_datum.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+    respond_to do |format|
+      format.html do
+        if @search_datum.save
+          flash[:success] = 'Searched saved successfully'
 
-  respond_to do |format|
-    format.html do
-      if @search_datum.save
-        flash[:success] = 'Searched saved successfully'
-
-        redirect_to "/users/#{@user.id}/article/#{@article.id}"
-      else
-        flash.now[:error] = 'Error: Like could not be saved'
+          redirect_to "/users/#{@user.id}/article/#{@article.id}"
+        else
+          flash.now[:error] = 'Error: Like could not be saved'
+        end
       end
     end
   end
-end
 
   # PATCH/PUT /search_data/1 or /search_data/1.json
   def update
