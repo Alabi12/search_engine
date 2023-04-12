@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Search data</h1>
+
+<div id="search_data">
+  <% @search_data.each do |search_datum| %>
+    <%= render search_datum %>
+    <p>
+      <%= link_to "Show this search datum", search_datum %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New search datum", new_search_datum_path %>
